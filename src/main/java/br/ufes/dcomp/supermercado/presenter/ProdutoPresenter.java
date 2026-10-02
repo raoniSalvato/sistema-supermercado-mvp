@@ -1,11 +1,18 @@
-
 package br.ufes.dcomp.supermercado.presenter;
 
 import br.ufes.dcomp.supermercado.model.Categoria;
 import br.ufes.dcomp.supermercado.model.Produto;
+import br.ufes.dcomp.supermercado.presenter.state.EdicaoState;
+import br.ufes.dcomp.supermercado.presenter.state.InclusaoState;
+import br.ufes.dcomp.supermercado.presenter.state.ProdutoPresenterState;
+import br.ufes.dcomp.supermercado.presenter.state.VisualizacaoState;
 import br.ufes.dcomp.supermercado.repositorio.CategoriaRepository;
 import br.ufes.dcomp.supermercado.repositorio.HistoricoPrecoRepository;
 import br.ufes.dcomp.supermercado.repositorio.ProdutoRepository;
+import br.ufes.dcomp.supermercado.validacao.produto.ValidadorCategoria;
+import br.ufes.dcomp.supermercado.validacao.produto.ValidadorNome;
+import br.ufes.dcomp.supermercado.validacao.produto.ValidadorPreco;
+import br.ufes.dcomp.supermercado.validacao.produto.ValidadorProdutoHandler;
 import br.ufes.dcomp.supermercado.view.ProdutoView;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -15,32 +22,36 @@ public class ProdutoPresenter {
     private ProdutoView view;
     private ProdutoRepository produtoRepo;
     private CategoriaRepository categoriaRepo;
+    private HistoricoPrecoRepository historicoPrecoRepository;
+    
     private Produto produtoAtual;
     private List<Categoria> listaCategorias; 
-    private HistoricoPrecoPresenter historicoPrecoPresenter;
-    private HistoricoPrecoRepository historicoPrecoRepository;
+    
+    private ProdutoPresenterState estado;
     
     public ProdutoPresenter(ProdutoRepository produtoRepo, CategoriaRepository categoriaRepo, HistoricoPrecoRepository historicoRepo, Produto produto, boolean modoVisualizacao) {
         this.produtoRepo = produtoRepo;
         this.categoriaRepo = categoriaRepo;
+        this.historicoPrecoRepository = historicoRepo;
         this.produtoAtual = produto;
         this.view = new ProdutoView();
-        this.historicoPrecoRepository = historicoRepo;
         
         this.view.setLocationRelativeTo(null);
         
         carregarCategorias();
         configurarListeners();
         
-        if (modoVisualizacao && produto != null) {
+        // Define o estado inicial da interface
+        if (produto == null) {
+            setEstado(new InclusaoState(this));
+        } else if (modoVisualizacao) {
             preencherFormulario();
-            estadoVisualizacao();
+            setEstado(new VisualizacaoState(this));
         } else {
-            estadoInclusaoEdicao();
-            if (produto != null) {
-                preencherFormulario(); 
-            }
-        }       
+            preencherFormulario();
+            setEstado(new EdicaoState(this));
+        }
+        
         this.view.setVisible(true);
     }
 
@@ -53,7 +64,7 @@ public class ProdutoPresenter {
         }
     }
 
-    private void preencherFormulario() {
+    public void preencherFormulario() {
         view.getTextNomeProduto().setText(produtoAtual.getNome());
         view.getTextPrecoCusto().setText(String.valueOf(produtoAtual.getPrecoCusto()));
         
@@ -67,66 +78,35 @@ public class ProdutoPresenter {
             view.getTextPrecoVenda().setText("");
         }
     }
-    
-    private void estadoVisualizacao() {
-        view.getTextNomeProduto().setEnabled(false);
-        view.getTextPrecoCusto().setEnabled(false);
-        view.getCbTipoCategoriaProduto().setEnabled(false);
-        
-        view.getTextMargemLucro().setEnabled(false);
-        view.getTextPrecoVenda().setEnabled(false);
-        
-        view.getBtnSalvar().setVisible(false);
-        view.getBtnCancelar().setVisible(false);
-        
-        view.getBtnEditar().setVisible(true);
-        view.getBtnVisualizarHistoricoPrecos().setVisible(true);
-        view.getBtnFechar().setVisible(true);
-    }
-
-    private void estadoInclusaoEdicao() {
-        view.getTextNomeProduto().setEnabled(true);
-        view.getTextPrecoCusto().setEnabled(true);
-        view.getCbTipoCategoriaProduto().setEnabled(true);
-
-        view.getTextMargemLucro().setEnabled(false);
-        view.getTextPrecoVenda().setEnabled(false);
-        
-        view.getBtnSalvar().setVisible(true);
-        view.getBtnCancelar().setVisible(true);
-        
-        view.getBtnEditar().setVisible(false);
-        view.getBtnVisualizarHistoricoPrecos().setVisible(false);
-        view.getBtnFechar().setVisible(false); 
-    }
 
     private void configurarListeners() {
-        view.getBtnFechar().addActionListener(e -> view.dispose());
+        view.getBtnFechar().addActionListener(e -> estado.fechar());
+        view.getBtnCancelar().addActionListener(e -> estado.cancelar());
+        view.getBtnEditar().addActionListener(e -> estado.editar());
+        view.getBtnSalvar().addActionListener(e -> estado.salvar());
         
-        view.getBtnCancelar().addActionListener(e -> {
-            if (produtoAtual == null) {
-                view.dispose(); 
-            } else {
-                preencherFormulario();
-                estadoVisualizacao(); 
-            }
-        });
-        
-        view.getBtnEditar().addActionListener(e -> estadoInclusaoEdicao());
-        
-        view.getBtnSalvar().addActionListener(e -> salvarProduto());
-   
         view.getBtnVisualizarHistoricoPrecos().addActionListener(e -> {
              new HistoricoPrecoPresenter(historicoPrecoRepository, produtoAtual); 
         });
     }
 
-    private void salvarProduto() {
+   public void executarSalvar() {
         try {
             String nome = view.getTextNomeProduto().getText();
-            Double precoCusto = Double.parseDouble(view.getTextPrecoCusto().getText().replace(",", "."));
             
+            String precoTexto = view.getTextPrecoCusto().getText(); 
             int indexSelecionado = view.getCbTipoCategoriaProduto().getSelectedIndex();
+            
+            ValidadorProdutoHandler validadorNome = new ValidadorNome();
+            ValidadorProdutoHandler validadorPreco = new ValidadorPreco();
+            ValidadorProdutoHandler validadorCategoria = new ValidadorCategoria();
+            
+            validadorNome.setProximo(validadorPreco);
+            validadorPreco.setProximo(validadorCategoria);
+            
+            validadorNome.validar(nome, precoTexto, indexSelecionado);
+            
+            Double precoCusto = Double.parseDouble(precoTexto.replace(",", "."));
             Categoria categoriaSelecionada = listaCategorias.get(indexSelecionado);
             
             if (produtoAtual == null) {
@@ -140,10 +120,18 @@ public class ProdutoPresenter {
             }
             
             JOptionPane.showMessageDialog(view, "Produto salvo com sucesso!");
-            estadoVisualizacao();
+            setEstado(new VisualizacaoState(this));
             
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(view, "Verifique os dados informados. Preço deve ser numérico.", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(view, ex.getMessage(), "Erro de Validação", JOptionPane.WARNING_MESSAGE);
         }
+    }
+
+    public ProdutoView getView() {
+        return view;
+    }
+
+    public void setEstado(ProdutoPresenterState estado) {
+        this.estado = estado;
     }
 }

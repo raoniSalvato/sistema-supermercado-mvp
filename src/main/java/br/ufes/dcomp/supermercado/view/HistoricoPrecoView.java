@@ -98,9 +98,9 @@ public class HistoricoPrecoView extends javax.swing.JFrame {
                                 .addComponent(textProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(238, 238, 238)
-                        .addComponent(btnFechar)))
-                .addContainerGap(88, Short.MAX_VALUE))
+                        .addGap(211, 211, 211)
+                        .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -71,8 +71,6 @@ public class BuscaProdutoPresenter {
         });
     }
     
-    
-
     private void buscarProdutos() {
         String termo = view.getTextCbTipoBusca().getText().trim().toLowerCase();
         String filtro = view.getCbTipoBusca().getSelectedItem().toString();
@@ -91,8 +89,7 @@ public class BuscaProdutoPresenter {
                 }
             }
         }
-        preencherTabela(produtosFiltrados);
-        
+        preencherTabela(produtosFiltrados); 
     }
 
     private void preencherTabela(List<Produto> produtos) {
