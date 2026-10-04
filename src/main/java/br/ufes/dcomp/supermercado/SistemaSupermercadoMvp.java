@@ -1,10 +1,11 @@
 
 package br.ufes.dcomp.supermercado;
 
-import br.ufes.dcomp.supermercado.presenter.TelaPrincipalPresenter;
+import br.ufes.dcomp.supermercado.presenter.AutenticacaoPresenter;
 import br.ufes.dcomp.supermercado.repositorio.CategoriaRepository;
 import br.ufes.dcomp.supermercado.repositorio.HistoricoPrecoRepository;
 import br.ufes.dcomp.supermercado.repositorio.ProdutoRepository;
+import br.ufes.dcomp.supermercado.repositorio.UsuarioRepository;
 import br.ufes.dcomp.supermercado.seeder.DataBaseSeeder;
 import br.ufes.dcomp.supermercado.servico.CalculoPrecoServico;
 import br.ufes.dcomp.supermercado.servico.CategoriaServico;
@@ -23,7 +24,8 @@ public class SistemaSupermercadoMvp {
         seeder.semear();
         
         java.awt.EventQueue.invokeLater(() -> {
-            new TelaPrincipalPresenter(categoriaRepo, categoriaServico, produtoRepo, historicoRepo, calculoServico);
+            UsuarioRepository usuarioRepo = new UsuarioRepository();
+            new AutenticacaoPresenter(usuarioRepo);
         });
     }
 }

@@ -1,12 +1,14 @@
-package br.ufes.dcomp.supermercado.presenter.state;
+package br.ufes.dcomp.supermercado.presenter.state.produto;
 
+import br.ufes.dcomp.supermercado.presenter.state.produto.ProdutoPresenterState;
+import br.ufes.dcomp.supermercado.presenter.state.produto.VisualizacaoState;
 import br.ufes.dcomp.supermercado.presenter.ProdutoPresenter;
 
-public class InclusaoState extends ProdutoPresenterState {
-
-    public InclusaoState(ProdutoPresenter presenter) {
+public class EdicaoState extends ProdutoPresenterState{
+    
+    public EdicaoState(ProdutoPresenter presenter) {
         super(presenter);
-
+        
         this.presenter.getView().getTextNomeProduto().setEnabled(true);
         this.presenter.getView().getTextPrecoCusto().setEnabled(true);
         this.presenter.getView().getCbTipoCategoriaProduto().setEnabled(true);
@@ -29,6 +31,7 @@ public class InclusaoState extends ProdutoPresenterState {
 
     @Override
     public void cancelar() {
-        presenter.getView().dispose();
+        presenter.preencherFormulario();
+        presenter.setEstado(new VisualizacaoState(presenter));
     }
 }

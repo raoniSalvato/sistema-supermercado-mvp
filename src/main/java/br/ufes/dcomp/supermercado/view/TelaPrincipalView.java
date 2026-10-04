@@ -1,6 +1,8 @@
 
 package br.ufes.dcomp.supermercado.view;
 
+import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 public class TelaPrincipalView extends javax.swing.JFrame {
@@ -23,31 +25,55 @@ public class TelaPrincipalView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnSair = new javax.swing.JButton();
+        lblNomeUsuario = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        menuIncluirProdutos = new javax.swing.JMenuItem();
-        menuBuscarProdutos = new javax.swing.JMenuItem();
+        jMenuOperacao = new javax.swing.JMenu();
+        jMenuDados = new javax.swing.JMenu();
+        menuProdutos = new javax.swing.JMenuItem();
         menuCategorias = new javax.swing.JMenuItem();
-        menuCalcularMargemLucro = new javax.swing.JMenuItem();
+        menuClientes = new javax.swing.JMenuItem();
+        menuEntregadores = new javax.swing.JMenuItem();
+        menuTaxasEntrega = new javax.swing.JMenuItem();
+        jMenuUsuarios = new javax.swing.JMenu();
+        menuGerenciarUsuarios = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenu1.setText("Dados");
+        btnSair.setText("Sair");
 
-        menuIncluirProdutos.setText("Incluir produtos");
-        menuIncluirProdutos.addActionListener(this::menuIncluirProdutosActionPerformed);
-        jMenu1.add(menuIncluirProdutos);
+        lblNomeUsuario.setText("Usuário:");
 
-        menuBuscarProdutos.setText("Buscar produtos");
-        jMenu1.add(menuBuscarProdutos);
+        jMenuOperacao.setText("Operação");
+        jMenuBar1.add(jMenuOperacao);
+
+        jMenuDados.setText("Dados");
+
+        menuProdutos.setText("Produtos");
+        menuProdutos.addActionListener(this::menuProdutosActionPerformed);
+        jMenuDados.add(menuProdutos);
 
         menuCategorias.setText("Categorias");
-        jMenu1.add(menuCategorias);
+        menuCategorias.addActionListener(this::menuCategoriasActionPerformed);
+        jMenuDados.add(menuCategorias);
 
-        menuCalcularMargemLucro.setText("Calcular margem de lucro");
-        jMenu1.add(menuCalcularMargemLucro);
+        menuClientes.setText("Clientes");
+        jMenuDados.add(menuClientes);
 
-        jMenuBar1.add(jMenu1);
+        menuEntregadores.setText("Entregadores");
+        jMenuDados.add(menuEntregadores);
+
+        menuTaxasEntrega.setText("Taxas de entrega");
+        jMenuDados.add(menuTaxasEntrega);
+
+        jMenuBar1.add(jMenuDados);
+
+        jMenuUsuarios.setText("Usuários");
+
+        menuGerenciarUsuarios.setText("Gerenciar");
+        jMenuUsuarios.add(menuGerenciarUsuarios);
+
+        jMenuBar1.add(jMenuUsuarios);
 
         setJMenuBar(jMenuBar1);
 
@@ -55,23 +81,36 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(436, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnSair)
+                        .addGap(42, 42, 42))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblNomeUsuario)
+                        .addGap(92, 92, 92))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 277, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(lblNomeUsuario)
+                .addGap(18, 18, 18)
+                .addComponent(btnSair)
+                .addContainerGap(357, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void menuIncluirProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuIncluirProdutosActionPerformed
+    private void menuProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuProdutosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_menuIncluirProdutosActionPerformed
+    }//GEN-LAST:event_menuProdutosActionPerformed
 
-    public JMenuItem getMenuCategorias() {
-        return menuCategorias;
-    }
+    private void menuCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCategoriasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuCategoriasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -98,25 +137,63 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new TelaPrincipalView().setVisible(true));
     }
 
-    public JMenuItem getMenuBuscarProdutos() {
-        return menuBuscarProdutos;
+    public javax.swing.JButton getBtnSair() {
+        return btnSair;
+    }
+
+    public JLabel getLblNomeUsuario() {
+        return lblNomeUsuario;
+    }
+
+    public JMenu getMenuOperacao() {
+        return jMenuOperacao;
+    }
+
+    public JMenu getMenuDados() {
+        return jMenuDados;
+    }
+
+    public JMenu getMenuUsuarios() {
+        return jMenuUsuarios;
     }
     
-    public JMenuItem getMenuCalcularMargem() {
-        return menuCalcularMargemLucro;
+    public JMenuItem getMenuGerenciarUsuarios() {
+        return menuGerenciarUsuarios;
     }
-    
-    public JMenuItem getMenuIncluirProdutos() {
-        return menuIncluirProdutos;
+
+    public JMenuItem getMenuProdutos() {
+        return menuProdutos;
+    }
+
+    public JMenuItem getMenuCategorias() {
+        return menuCategorias;
+    }
+
+    public JMenuItem getMenuClientes() {
+        return menuClientes;
+    }
+
+    public JMenuItem getMenuEntregadores() {
+        return menuEntregadores;
+    }
+
+    public JMenuItem getMenuTaxasEntrega() {
+        return menuTaxasEntrega;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
+    private javax.swing.JButton btnSair;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem menuBuscarProdutos;
-    private javax.swing.JMenuItem menuCalcularMargemLucro;
+    private javax.swing.JMenu jMenuDados;
+    private javax.swing.JMenu jMenuOperacao;
+    private javax.swing.JMenu jMenuUsuarios;
+    private javax.swing.JLabel lblNomeUsuario;
     private javax.swing.JMenuItem menuCategorias;
-    private javax.swing.JMenuItem menuIncluirProdutos;
+    private javax.swing.JMenuItem menuClientes;
+    private javax.swing.JMenuItem menuEntregadores;
+    private javax.swing.JMenuItem menuGerenciarUsuarios;
+    private javax.swing.JMenuItem menuProdutos;
+    private javax.swing.JMenuItem menuTaxasEntrega;
     // End of variables declaration//GEN-END:variables
 
    

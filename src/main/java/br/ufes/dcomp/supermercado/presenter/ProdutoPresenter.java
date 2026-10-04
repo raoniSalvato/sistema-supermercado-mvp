@@ -2,10 +2,10 @@ package br.ufes.dcomp.supermercado.presenter;
 
 import br.ufes.dcomp.supermercado.model.Categoria;
 import br.ufes.dcomp.supermercado.model.Produto;
-import br.ufes.dcomp.supermercado.presenter.state.EdicaoState;
-import br.ufes.dcomp.supermercado.presenter.state.InclusaoState;
-import br.ufes.dcomp.supermercado.presenter.state.ProdutoPresenterState;
-import br.ufes.dcomp.supermercado.presenter.state.VisualizacaoState;
+import br.ufes.dcomp.supermercado.presenter.state.produto.EdicaoState;
+import br.ufes.dcomp.supermercado.presenter.state.produto.InclusaoState;
+import br.ufes.dcomp.supermercado.presenter.state.produto.ProdutoPresenterState;
+import br.ufes.dcomp.supermercado.presenter.state.produto.VisualizacaoState;
 import br.ufes.dcomp.supermercado.repositorio.CategoriaRepository;
 import br.ufes.dcomp.supermercado.repositorio.HistoricoPrecoRepository;
 import br.ufes.dcomp.supermercado.repositorio.ProdutoRepository;
