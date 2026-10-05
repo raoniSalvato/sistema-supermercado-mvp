@@ -4,20 +4,18 @@ import br.ufes.dcomp.supermercado.model.Produto;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class ProdutoRepository {
-    private List<Produto> produtos;
-    private Long proximoId;
+    
+    private static List<Produto> produtos = new ArrayList<>();
+    private static Long proximoId = 1L;
     
     public ProdutoRepository() {
-        this.produtos = new ArrayList<>();
-        this.proximoId = 1L;
     }
     
     public void salvar(Produto produto){
         if(produto.getId() == null){
             produto.setId(proximoId);
-            this.produtos.add(produto);
+            produtos.add(produto);
             proximoId++;
         }
     }
@@ -27,9 +25,6 @@ public class ProdutoRepository {
     }
     
     public void excluir(Produto produto){
-        this.produtos.remove(produto);
+        produtos.remove(produto);
     }    
-    
-    
-    
 }

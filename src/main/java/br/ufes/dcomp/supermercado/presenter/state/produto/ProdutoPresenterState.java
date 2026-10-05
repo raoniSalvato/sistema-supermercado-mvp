@@ -1,5 +1,5 @@
 
-package br.ufes.dcomp.supermercado.presenter.state;
+package br.ufes.dcomp.supermercado.presenter.state.produto;
 
 import br.ufes.dcomp.supermercado.presenter.ProdutoPresenter;
 
