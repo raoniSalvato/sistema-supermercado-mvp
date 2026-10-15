@@ -10,4 +10,9 @@ public class ValidadorNome extends ValidadorProdutoHandler{
         }
     }
     
+    
+    @Override
+    protected boolean seAplica(String nome, String precoTexto, int indexCategoria) {
+        return true; 
+    }
 }

@@ -10,4 +10,9 @@ public class ValidadorAdministradorProtegido extends ValidadorUsuarioHandler {
             throw new RuntimeException("O utilizador Administrador não pode ser excluído nem desabilitado.");
         }
     }
+    
+    @Override
+    protected boolean seAplica(Usuario usuario) {
+        return usuario != null && usuario.getPerfil() == PerfilUsuario.ADMINISTRADOR;
+    }
 }

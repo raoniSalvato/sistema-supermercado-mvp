@@ -11,13 +11,16 @@ public abstract class ValidadorCategoriaHandler {
     }
 
     public void validar(Categoria categoria) {
-        realizarValidacao(categoria);
+        if(this.seAplica(categoria)){
+            this.realizarValidacao(categoria);
+        }
         
         if (proximo != null) {
             proximo.validar(categoria);
         }
     }
 
-    // Usamos RuntimeException para manter a compatibilidade com o seu Presenter atual
     protected abstract void realizarValidacao(Categoria categoria) throws RuntimeException;
+
+    protected abstract boolean seAplica(Categoria categoria) throws RuntimeException;
 }

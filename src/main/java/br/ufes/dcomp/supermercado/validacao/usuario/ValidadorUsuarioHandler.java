@@ -11,7 +11,9 @@ public abstract class ValidadorUsuarioHandler {
     }
     
     public void validar(Usuario usuario) throws RuntimeException{
-        realizarValidacao(usuario);
+        if(this.seAplica(usuario)){
+            realizarValidacao(usuario);
+        }
         
         if(proximo != null){
             proximo.validar(usuario);
@@ -20,5 +22,6 @@ public abstract class ValidadorUsuarioHandler {
 
     protected abstract void realizarValidacao(Usuario usuario) throws RuntimeException;
     
+    protected abstract boolean seAplica(Usuario usuario);
     
 }

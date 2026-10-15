@@ -16,5 +16,10 @@ public class ValidadorDadosObrigatoriosUsuario extends ValidadorUsuarioHandler{
     private boolean nuloOuVazio(String valor) {
         return valor == null || valor.trim().isEmpty();
     }
+    
+    @Override
+    protected boolean seAplica(Usuario usuario) {
+        return usuario != null; 
+    }
        
 }

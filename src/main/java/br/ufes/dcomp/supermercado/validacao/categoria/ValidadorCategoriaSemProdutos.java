@@ -22,4 +22,9 @@ public class ValidadorCategoriaSemProdutos extends ValidadorCategoriaHandler {
             }
         }
     }
+    
+    @Override 
+    protected boolean seAplica(Categoria categoria){
+        return categoria != null && categoria.getId() != null;
+    }
 }

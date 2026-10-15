@@ -9,6 +9,7 @@ import br.ufes.dcomp.supermercado.repositorio.UsuarioRepository;
 import br.ufes.dcomp.supermercado.seeder.DataBaseSeeder;
 import br.ufes.dcomp.supermercado.servico.CalculoPrecoServico;
 import br.ufes.dcomp.supermercado.servico.CategoriaServico;
+import java.awt.EventQueue;
 
 public class SistemaSupermercadoMvp {
 
@@ -23,7 +24,7 @@ public class SistemaSupermercadoMvp {
         DataBaseSeeder seeder = new DataBaseSeeder(categoriaRepo, produtoRepo, calculoServico);
         seeder.semear();
         
-        java.awt.EventQueue.invokeLater(() -> {
+        EventQueue.invokeLater(() -> {
             UsuarioRepository usuarioRepo = new UsuarioRepository();
             new AutenticacaoPresenter(usuarioRepo);
         });

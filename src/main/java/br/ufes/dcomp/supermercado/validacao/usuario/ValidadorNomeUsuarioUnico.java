@@ -21,4 +21,9 @@ public class ValidadorNomeUsuarioUnico extends ValidadorUsuarioHandler{
             }
         }
     }
+    
+    @Override
+    protected boolean seAplica(Usuario usuario) {
+        return usuario != null && usuario.getNomeUsuario() != null && !usuario.getNomeUsuario().trim().isEmpty();
+    }
 }

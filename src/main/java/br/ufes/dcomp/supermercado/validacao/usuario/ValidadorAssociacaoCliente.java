@@ -11,4 +11,9 @@ public class ValidadorAssociacaoCliente extends ValidadorUsuarioHandler {
             throw new RuntimeException("Para o perfil Cliente, é obrigatório selecionar um Cliente associado.");
         }
     }
+    
+    @Override
+    protected boolean seAplica(Usuario usuario) {
+        return usuario != null && usuario.getPerfil() == PerfilUsuario.CLIENTE;
+    }
 }

@@ -9,4 +9,9 @@ public class ValidadorPercentualLucro extends ValidadorCategoriaHandler {
             throw new RuntimeException("O percentual de lucro da categoria é obrigatório e deve ser maior ou igual a zero.");
         }
     }
+    
+    @Override
+    protected boolean seAplica(Categoria categoria) {
+        return categoria != null;
+    }
 }

@@ -9,4 +9,9 @@ public class ValidadorNomeCategoria extends ValidadorCategoriaHandler {
             throw new RuntimeException("O nome da categoria é obrigatório e não deve ser composto apenas por espaços.");
         }
     }
+    
+    @Override
+    protected  boolean seAplica(Categoria categoria){
+        return categoria != null;
+    }
 }

@@ -9,12 +9,16 @@ public abstract class ValidadorProdutoHandler {
     }
     
     public void validar(String nome, String precoTexto, int indexCategoria) throws Exception{
-        realizarValidacao(nome, precoTexto, indexCategoria);
+        if(seAplica(nome, precoTexto, indexCategoria)){
+            realizarValidacao(nome, precoTexto, indexCategoria);
+        }
         
         if(proximo != null){
             proximo.validar(nome, precoTexto, indexCategoria);
         }
     }
+    
+    protected abstract boolean seAplica(String nome, String precoTexto, int indexCategoria);
     
     protected abstract void realizarValidacao(String nome, String precoTexto, int indexCategoria) throws Exception;
 }

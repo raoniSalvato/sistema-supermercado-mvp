@@ -16,4 +16,9 @@ public class ValidadorPreco extends ValidadorProdutoHandler {
             throw new Exception("Informe um preço de custo numérico válido.");
         }
     }
+    
+    @Override
+    protected boolean seAplica(String nome, String precoTexto, int indexCategoria) {
+        return true; // A validação de preço sempre deve ser executada
+    }
 }

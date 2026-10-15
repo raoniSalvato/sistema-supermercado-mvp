@@ -11,12 +11,17 @@ public abstract class ValidadorClienteHandler {
     }
     
     public void validar(Cliente cliente) throws RuntimeException{
-        realizarValidacao(cliente);
+        if(this.seAplica(cliente)){
+            realizarValidacao(cliente);
+        }
         
         if(proximo != null){
             proximo.validar(cliente);
         }
     }
 
+    protected abstract boolean seAplica(Cliente cliente);
+    
     protected abstract void realizarValidacao(Cliente cliente) throws RuntimeException;
+    
 }

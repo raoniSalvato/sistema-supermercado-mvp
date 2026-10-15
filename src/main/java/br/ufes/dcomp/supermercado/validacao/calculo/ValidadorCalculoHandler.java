@@ -11,12 +11,16 @@ public abstract class ValidadorCalculoHandler {
     }
 
     public void validar(LocalDate dataAtual, LocalDate dataUltimoCalculo) {
-        realizarValidacao(dataAtual, dataUltimoCalculo);
+        if (this.seAplica(dataAtual, dataUltimoCalculo)) {
+            this.realizarValidacao(dataAtual, dataUltimoCalculo);
+        }
         
         if (proximo != null) {
             proximo.validar(dataAtual, dataUltimoCalculo);
         }
     }
 
+    protected abstract boolean seAplica(LocalDate dataAtual, LocalDate dataUltimoCalculo);
+    
     protected abstract void realizarValidacao(LocalDate dataAtual, LocalDate dataUltimoCalculo) throws RuntimeException;
 }

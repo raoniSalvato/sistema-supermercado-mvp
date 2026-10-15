@@ -27,4 +27,8 @@ public class ValidadorDadosObrigatoriosCliente extends ValidadorClienteHandler{
         return valor == null || valor.trim().isEmpty();
     }
     
+    @Override
+    protected boolean seAplica(Cliente cliente){
+        return cliente!= null;
+    }
 }

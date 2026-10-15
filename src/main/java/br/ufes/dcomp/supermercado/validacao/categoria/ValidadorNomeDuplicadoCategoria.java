@@ -13,6 +13,11 @@ public class ValidadorNomeDuplicadoCategoria extends ValidadorCategoriaHandler {
     }
 
     @Override
+    protected boolean seAplica(Categoria categoria){
+        return categoria != null && categoria.getNome() != null && !categoria.getNome().trim().isEmpty();
+    }
+    
+    @Override
     protected void realizarValidacao(Categoria categoria) throws RuntimeException {
         List<Categoria> categoriasExistentes = repository.buscarTodas();
         for (Categoria categoriaExistente : categoriasExistentes) {
